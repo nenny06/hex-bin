@@ -1,0 +1,1 @@
+Working on function that convert hexa and binary numbers t base 10 numbers. Am working on conversion of hexa and binary found in sentences to base 10, but decicde to first write this code that converts only hexa and binary numbers first

@@ -1,0 +1,17 @@
+package main
+
+import "fmt"
+
+func tour(n string) int {
+	decimal := 0// stores the final converted number
+	for i := 0; i < len(n); i++ {//goes through each digit  of len of str one by one
+		char := n[i]//gets the character at indx
+		digitvalue := int(char - '0')//convert char '1' into int 1
+		power := (len(n) - 1) - i//determines the power the digit represents
+		if char >= '0' && char <= '9' {// ensures the character is between 0 -9
+			decimal += digitvalue << power//uses bit shifting to calculate which is equivalent to decimal += digitvalue * (2^power)
+		}
+	}
+
+	return decimal// returns the final converted number
+}

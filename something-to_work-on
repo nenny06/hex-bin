@@ -1,0 +1,39 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+	"strconv"
+)
+
+func main(){
+	word := "It has been 10 (bin) years"
+
+	result := strings.Fields(word)
+	
+
+	for i := 0; i < len(result); i++ {
+		if result[i] == "(bin)" {
+
+			new_word := result[i-1]
+			data, err := strconv.ParseInt(new_word, 2, 64)
+			if err != nil {
+				fmt.Println("Error")
+			}
+
+			result[i-1] = strconv.FormatInt(data, 10)
+
+			result = append(result[:i], result[i+1:]...)
+
+			//fmt.Println(result)
+
+			fmt.Println(strings.Join(result, " "))
+
+
+
+
+		}
+		
+	}
+
+}

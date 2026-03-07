@@ -1,0 +1,15 @@
+func larger(a, b string)string{
+  		if len(a) > len(b){
+			return a
+		}else if len(a) < len(b){
+			return b
+		}
+		for i := 0; i < len(a);i++{
+				if a[i] > b[i]{
+					return a
+				}else if a[i] < b[i]{
+					return b
+				}
+			}
+			return "equal"
+		}

@@ -15,3 +15,32 @@ func spaceRemover(word string) string {
 
 	return result
 }
+
+//more on space remover and addition etc
+func spaceRemover(word string) string {
+	result := ""
+
+	for i, c := range word {
+		// Check for space before punctuation
+		if (c == '.' || c == ',' || c == '!' || c == '?' || c == ';' || c == ':') &&
+			len(result) > 0 && result[len(result)-1] == ' ' {
+			result = result[:len(result)-1] // remove space before punctuation
+		}
+
+		// Handle "..." group specifically
+		if c == '.' && i+2 < len(word) && word[i:i+3] == "..." {
+			result += "..." // add the group
+			i += 2          // skip next 2 characters (already counted in "...")
+			// Add space after group if next char is not space or end of string
+			if i+1 < len(word) && word[i+1] != ' ' {
+				result += " "
+			}
+			continue
+		}
+
+		// Add the current character to result
+		result += string(c)
+	}
+
+	return result
+}

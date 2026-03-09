@@ -1,0 +1,83 @@
+func formatText(word string) string {
+	result := ""
+	inQuotes := false // tracks if we are inside a '...'
+
+	i := 0
+	for i < len(word) {
+		c := word[i]
+
+		// Handle quotes
+		if c == '\'' {
+			if !inQuotes {
+				// Remove space after opening quote
+				if len(result) > 0 && result[len(result)-1] == ' ' {
+					result = result[:len(result)-1]
+				}
+				result += "'"
+				inQuotes = true
+				// Skip any space immediately after opening quote
+				i++
+				for i < len(word) && word[i] == ' ' {
+					i++
+				}
+				continue
+			} else {
+				// Remove space before closing quote
+				if len(result) > 0 && result[len(result)-1] == ' ' {
+					result = result[:len(result)-1]
+				}
+				result += "'"
+				inQuotes = false
+				i++
+				continue
+			}
+		}
+
+		// Handle punctuation groups first
+		if i+3 <= len(word) && word[i:i+3] == "..." {
+			if len(result) > 0 && result[len(result)-1] == ' ' {
+				result = result[:len(result)-1]
+			}
+			result += "..."
+			i += 3
+			if i < len(word) && word[i] != ' ' {
+				result += " "
+			}
+			continue
+		}
+
+		if i+2 <= len(word) {
+			twoChar := word[i : i+2]
+			if twoChar == "!!" || twoChar == "?!" || twoChar == "!?" {
+				if len(result) > 0 && result[len(result)-1] == ' ' {
+					result = result[:len(result)-1]
+				}
+				result += twoChar
+				i += 2
+				if i < len(word) && word[i] != ' ' {
+					result += " "
+				}
+				continue
+			}
+		}
+
+		// Handle single punctuation
+		if c == '.' || c == ',' || c == '!' || c == '?' || c == ';' || c == ':' {
+			if len(result) > 0 && result[len(result)-1] == ' ' {
+				result = result[:len(result)-1]
+			}
+			result += string(c)
+			i++
+			if i < len(word) && word[i] != ' ' {
+				result += " "
+			}
+			continue
+		}
+
+		// Regular character or inside quotes
+		result += string(c)
+		i++
+	}
+
+	return result
+}

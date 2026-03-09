@@ -1,0 +1,17 @@
+func spaceRemover(word string) string {
+	result := ""
+
+	for _, c := range word {
+		// Check if current character is one of the punctuation marks
+		if (c == '.' || c == ',' || c == '!' || c == '?' || c == ';' || c == ':') &&
+			len(result) > 0 && result[len(result)-1] == ' ' {
+			// Remove the space before punctuation
+			result = result[:len(result)-1]
+		}
+
+		// Add current character to the result
+		result += string(c)
+	}
+
+	return result
+}

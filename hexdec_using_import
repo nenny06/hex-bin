@@ -1,0 +1,27 @@
+package main
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
+func hexDec(hexstr string) string {
+	words := strings.Fields(hexstr)
+	for i := 1; i < len(words); i++ {
+		if words[i] == "(hex)" {
+			nextWord, err := strconv.ParseInt(words[i-1], 16, 64)
+			if err != nil {
+				return " "
+			}
+			words[i-1] = strconv.FormatInt(nextWord, 10)
+			words = append(words[:i], words[i+1:]...)
+		}
+	}
+	return strings.Join(words, " ")
+}
+
+func main() {
+	fmt.Println(hexDec("1E (hex) files were added"))
+	fmt.Println(hexDec("we  have FF (hex) dogs"))
+}
